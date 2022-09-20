@@ -1,0 +1,19 @@
+{% extends  'base.html' %}
+
+{% block main %}
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="form" style="margin: 0 auto;">
+        <label for="name">ФИО пациента</label>
+        <input style="width: 750px; margin: 10px auto;" class="form-control" type="text" name="name" id="name" value="{{pacient.name}}">
+
+        <label for="nIb">№ ИБ</label>
+        <input style="width: 750px; margin: 10px auto;" class="form-control" type="text" name="nIb" id="nIb" value="{{pacient.nIb}}">
+
+        <label for="room">Палата</label>
+        <input style="width: 750px; margin: 10px auto;" class="form-control" type="text" name="room" id="room" value="{{pacient.room}}">
+
+        <button type="submit" class="btn btn-outline-success">Сохранить изменения</button>
+    </div>
+</form>
+{% endblock %}

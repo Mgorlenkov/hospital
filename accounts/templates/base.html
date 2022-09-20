@@ -1,0 +1,60 @@
+<x!doctype  html>
+<html  lang="en">
+<head>
+<link  rel="stylesheet"  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"  crossorigin="anonymous">
+<title>Django Authentication</title>
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="">Hospital</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">Главная</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/admin">Админка</a>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+          
+          {% if request.user.is_authenticated %}
+          <li class="nav-item ml-auto">
+            <a class="nav-link active" aria-current="page" href="#">{{request.user}}</a>
+          </li>
+          <li class="nav-item ml-auto">
+            <a href="/logout" class="btn btn-outline-success" type="submit">Выйти</a>
+          </li>
+          {% else %}
+          <li class="nav-item ml-auto">
+            <a href="/login" class="btn btn-outline-success" type="submit">Войти</a>
+          </li>
+          {% endif %}
+        </ul> 
+      </div>
+    </div>
+  </nav>
+
+{% if request.user.is_authenticated %} 
+
+    <div  class="row justify-content-center">
+      <div  class="mt-5">
+      {% block main %}
+
+      {% endblock %}
+      </div>
+    </div>
+{% else %}
+  {% block login %}
+
+  {% endblock %}
+{% endif %}
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+{% extends  'base.html' %}
+
+{% block main %}
+<table class="table">
+<thead>
+  <tr>
+    <th scope="col">№</th>
+    <th scope="col">Имя</th>
+    <th scope="col">№ ИБ</th>
+    <th scope="col">№ палаты</th>
+    <th scope="col">Дата госпитализации</th>
+    <th scope="col">Отдел</th>
+    <th scope="col">Заполнение бланка</th>
+  </tr>
+</thead> 
+  <tbody>
+    <tr>
+    <th scope="row">1</th>
+        <td>{{pacient.name}}</td>
+        <td>{{pacient.nIb}}</td>
+        <td>{{pacient.room}}</td>
+        <td>{{pacient.date}}</td>
+        <td>{{pacient.otdel}}</td>
+        <td><a href="/" class="btn btn-outline-success" type="submit">Назад</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="table mt-5">
+<thead>
+  <tr>
+  <th scope="col">№</th>
+    <th scope="col">Тип документа</th>
+    <th scope="col">Создать документ</th>
+  </tr>
+</thead> 
+  <tbody>
+    <tr>
+    <th scope="row">1</th>
+        <td>Табличка на кровать</td>
+        <td><a href="/download/{{pacient.nIb}}" class="btn btn-outline-success" type="submit">Скачать</button></td>
+    </tr>
+    <th scope="row">2</th>
+        <td>Гликемический профиль</td>
+        <td><a href="/glikProfile/{{pacient.nIb}}" class="btn btn-outline-success" type="submit">Перейти к заполнению</button></td>
+    </tr>
+    <th scope="row">3</th>
+        <td>Учет водного баланса</td>
+        <td><a href="/water/{{pacient.nIb}}" class="btn btn-outline-success" type="submit">Перейти к заполнению</button></td>
+    </tr>
+    <th scope="row">4</th>
+        <td>Пин лист</td>
+        <td><a href="/pin-list/{{pacient.nIb}}" class="btn btn-outline-success" type="submit">Перейти к заполнению</button></td>
+    </tr>
+  </tbody>
+</table>
+{% endblock %}

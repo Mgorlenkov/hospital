@@ -1,0 +1,88 @@
+{% extends  'base.html' %}
+{% load genDocx %}
+
+{% block main %}
+<form method="post">
+    {% csrf_token %}
+    <h2>Шапка:</h2><br>
+    {{form.name}}<br>
+    {{form.med}}<br>
+    {{form.doctor}}<br>
+    {{form.date}}<br>
+    <h2>Диета:</h2><br>
+    <table class="table mt-5">
+        <tbody>
+          <tr>
+          <th scope="row">1</th>
+              <td>При сахарном диабете</td>
+              <td>{{form.diabet}}</td>
+          </tr>
+          <th scope="row">2</th>
+              <td>Щадящая</td>
+              <td>{{form.lite}}</td>
+          </tr>
+          <th scope="row">3</th>
+              <td>Высокобелковая</td>
+              <td>{{form.belok}}</td>
+          </tr>
+          <th scope="row">4</th>
+              <td>Низкобелковая</td>
+              <td>{{form.lite_belok}}</td>
+          </tr>
+          <th scope="row">5</th>
+              <td>Низкокалорийная</td>
+              <td>{{form.low_kallory}}</td>
+          </tr>
+          <th scope="row">6</th>
+              <td>Высококалорийная</td>
+              <td>{{form.hight_kallory}}</td>
+          </tr>
+          <th scope="row">7</th>
+              <td>Дата окончания</td>
+              <td>{{form.deadline}}</td>
+          </tr>
+        </tbody>
+  </table>
+    <h2>План ухода:</h2><br>
+    <table class="table mt-5">
+          <tbody>
+            <tr>
+            <th scope="row">1</th>
+                <td>Дата установки ПВК</td>
+                <td>{{form.pvk_date}}</td>
+            </tr>
+            <th scope="row">2</th>
+                <td>Дата установки ЦВК</td>
+                <td>{{form.zvk_date}}</td>
+            </tr>
+            <th scope="row">3</th>
+                <td>Дата установки УК</td>
+                <td>{{form.uk_date}}</td>
+            </tr>
+            <th scope="row">4</th>
+                <td>Риск падения</td>
+                <td>{{form.yes_no}}</td>
+            </tr>
+            <th scope="row">5</th>
+                <td>Независимый</td>
+                <td>{{form.n}}</td>
+            </tr>
+            <th scope="row">6</th>
+                <td>1 помощник</td>
+                <td>{{form.one}}</td>
+            </tr>
+            <th scope="row">7</th>
+                <td>2 помощника</td>
+                <td>{{form.two}}</td>
+            </tr>
+            <th scope="row">8</th>
+                <td>В кресле</td>
+                <td>{{form.chair}}</td>
+            </tr>
+          </tbody>
+    </table>
+    <br>
+    <button class="btn btn-outline-success" type="submit">Скачать</button>
+</form>
+
+{% endblock %}

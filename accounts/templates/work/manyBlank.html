@@ -1,0 +1,115 @@
+{% extends  'base.html' %}
+
+{% block main %}
+<table class="table">
+<thead>
+  <tr>
+    <th scope="col">Имя</th>
+    <th scope="col">№ ИБ</th>
+    <th scope="col">№ палаты</th>
+    <th scope="col">Дата госпитализации</th>
+    <th scope="col">Отдел</th>
+    <th scope="col">Заполнение бланка</th>
+  </tr>
+</thead> 
+  <tbody>
+      {% for pacient in pacients %}
+        <tr>
+            <td>{{pacient.name}}</td>
+            <td>{{pacient.nIb}}</td>
+            <td>{{pacient.room}}</td>
+            <td>{{pacient.date}}</td>
+            <td>{{pacient.otdel}}</td>
+            <td><a href="/" class="btn btn-outline-success" type="submit">Назад</a></td>
+        </tr>
+      {% endfor %}
+    
+  </tbody>
+</table>
+
+<div class="blanks" id="blanks">
+    <table class="table mt-5">
+    <thead>
+    <tr>
+    <th scope="col">№</th>
+        <th scope="col">Тип документа</th>
+        <th scope="col">Создать документ</th>
+    </tr>
+    </thead> 
+    <tbody>
+        <tr>
+        <th scope="row">1</th>
+            <td>Табличка на кровать</td>
+            <form method="post">
+                {% csrf_token %}
+                <td><button class="btn btn-outline-success" type="submit" name="bedTablet">Скачать</button></td>
+                <div style="visibility: hidden; width: 0; height: 0;">
+                    {% for pacient in pacients %}
+                        <div class="input-card" style="margin: 10px auto; border: 2px solid #000; width: auto; padding: 10px 10px 10px 10px;">
+                            <input style="width: 750px; margin: 10px auto;" class="form-control" type="text" name="id: {{pacient.id}}" id="room" value="{{ pacient.nIb }}">
+                            <input style="width: 750px; margin: 10px auto;" class="form-control" type="text" name="id: {{pacient.id}}" id="room" value="{{pacient.name}}">
+                            <input style="width: 750px; margin: 10px auto;" class="form-control" type="text" name="id: {{pacient.id}}" id="room" value="{{pacient.date}}">
+                        </div>
+                    {% endfor %}
+                </div>
+            </form>
+            
+        </tr>
+        <th scope="row">2</th>
+            <td>Гликемический профиль</td>
+            <td><button class="btn btn-outline-success"
+                onclick="
+                var glik = document.getElementById('glik')
+                glik.style.display = 'block'
+                "
+                >Перейти к заполнению</button></td>
+        </tr>
+    </tbody>
+    </table>
+</div>
+
+<div class="glik" id="glik" style="display: none;">
+    <form method="post">
+        {% csrf_token %}
+        {% for pacient in pacients %}
+            <div class="input-card" style="margin: 10px auto; border: 2px solid #000; width: auto; padding: 10px 10px 10px 10px;">
+                <input style="width: 750px; margin: 10px auto;" class="form-control" type="text" name="id: {{pacient.id}}" id="room" value="{{ pacient.name }}"><br>
+                <input style="width: 750px; margin: 10px auto;" class="form-control" type="text" name="id: {{pacient.id}}" id="room" value="{{pacient.date}}"><br>
+                <input style="width: 750px; margin: 10px auto;" class="form-control" type="text" name="id: {{pacient.id}}" id="room" value="{{pacient.room}}"><br>
+            </div>
+        {% endfor %}
+        <button type="button" class="btn btn-outline-success"
+                onclick="
+                var glik = document.getElementById('glik')
+                glik.style.display = 'none'
+                "
+                >Назад</button>
+
+        <button class="btn btn-outline-success"  type="submit" name="glik">Скачать</button>
+
+    </form>
+</div>
+
+<div class="water" id="water" style="display: none;">
+    <form method="post">
+        {% csrf_token %}
+        {% for pacient in pacients %}
+            <div class="input-card" style="margin: 10px auto; border: 2px solid #000; width: auto; padding: 10px 10px 10px 10px;">
+                <input style="width: 750px; margin: 10px auto;" class="form-control" type="text" name="id: {{pacient.id}}" id="room" value="{{ pacient.name }}"><br>
+                <input style="width: 750px; margin: 10px auto;" class="form-control" type="text" name="id: {{pacient.id}}" id="room" value="{{pacient.date}}"><br>
+                <input style="width: 750px; margin: 10px auto;" class="form-control" type="text" name="id: {{pacient.id}}" id="room" value="{{pacient.room}}"><br>
+            </div>
+        {% endfor %}
+        <button type="button" class="btn btn-outline-success"
+                onclick="
+                var glik = document.getElementById('water')
+                glik.style.display = 'none'
+                "
+                >Назад</button>
+
+        <button class="btn btn-outline-success"  type="submit" name="water">Скачать</button>
+
+    </form>
+</div>
+
+{% endblock %}

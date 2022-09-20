@@ -1,0 +1,133 @@
+{% extends  'base.html' %}
+{% load genDocx %}
+
+{% block main %}
+
+<form action="" method="post">
+  {% csrf_token %}
+  <div class="container">
+    <div class="input-group mb-3">
+      <input style="visibility: hidden; width: 0; height: 0;" type="text" class="form-control" placeholder="Номер палаты" aria-label="Номер палаты" aria-describedby="button-addon2" name="room" id="room">
+    </div>
+    {% for room in rooms %}
+      <button type="submit" class="btn btn-outline-success" name="{{room}}"
+      onclick="
+      var input = document.getElementById('room');
+      input.value = '{{room}}';
+      "
+      >{{room}}</button>
+    {% endfor %}
+    <button class="btn btn-outline-secondary ml-3" type="submit" id="button-addon2"
+    onclick="
+    var input = document.getElementById('room');
+    input.value = -1;
+    "
+    >Сбросить</button>  
+  </div>
+</form>
+
+<div class="row">
+
+  <div class="col-4">
+
+    <div class="card">
+      <div class="card-body">
+
+        <div class="card-header">Выгрузить на сайт EXCEL</div>
+        <div class="list-group-item">
+          <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="row">
+
+              <div class="col-8">
+                <input type="file" name="excel">
+              </div>
+
+              <div class="col-4">
+                <button class="btn btn-outline-success" type="submit">Выгрузить</button>
+              </div>
+
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card mt-5">
+      <div class="card-body">
+
+        <div class="card-header">Множественное заполнение бланка</div>
+        <div class="list-group-item">
+          <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="row">
+
+              <div class="col-8">
+                Отметьте нужных пациентов и нажмите на кнопку
+              </div>
+
+              <div class="col-4">
+                <button class="btn btn-outline-success" type="submit" name="selectSubmit">Далее</button>
+              </div>
+
+            </div>
+
+          
+        </div>
+
+      </div>
+    </div>
+
+</div>
+
+
+  <div class="col-8">
+  
+    <form action="/blank/" method="get">
+    <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Выбор</th>
+        <th scope="col">Имя</th>
+        <th scope="col">№ ИБ</th>
+        <th scope="col">№ палаты</th>
+        <th scope="col">Дата госпитализации</th>
+        <th scope="col">Заполнение бланка</th>
+      </tr>
+    </thead> 
+      <tbody>
+        {% for pacient in People %}
+            {% if  group == pacient.otdel_id%}
+                <tr>
+                    <td>
+                      <label class="form-check-label">
+                      <input type="checkbox" class="form-check-input ml-3" id='{{pacient.id}}' name='{{pacient.id}}' value="selectedPacient">
+                    </td>
+                    <td><a href="/edit/{{pacient.id}}">{{pacient.name}}</a></td>
+                    <td>{{pacient.nIb}}</td>
+                    <td>{{pacient.room}}</td>
+                    <td>{{pacient.date}}</td>
+                    <td><a href="/blank/{{pacient.nIb}}" class="btn btn-outline-success" type="submit">Докуметы</a></td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+      </form>
+      </tbody>
+    </table>
+    </form>
+
+  </div>
+  
+</div>
+
+<script>
+  if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
+  }
+</script>
+
+{% endblock %}
